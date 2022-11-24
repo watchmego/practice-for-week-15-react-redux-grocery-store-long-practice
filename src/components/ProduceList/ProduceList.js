@@ -4,7 +4,6 @@ import './ProduceList.css';
 
 
 function ProduceList() {
-  console.log('state', useSelector(state => state));
   const produce = useSelector(state => state.produce);
   
   const produceArr = Object.values(produce);
