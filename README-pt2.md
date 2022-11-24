@@ -94,9 +94,7 @@ The `action.produce` array should look something like this:
   // ...
 ]
 ```
-
 The object created from the array should look something like this:
-
 ```js
 {
   1: { id: 1, name: "Longos - Greek Salad", liked: false },
