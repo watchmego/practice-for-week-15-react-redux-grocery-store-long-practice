@@ -1,11 +1,12 @@
 
 const ADDTOCART = 'cart/addToCart';
+const REMOVEFROMCART = 'cart/removeFromCart';
 
 export default function cartReducer(state = {}, action) {
+    let newState = {};
     switch(action.type){
         case ADDTOCART:
-            console.log(state);
-            const newState = {
+            newState = {
                 ...state, 
                 [action.id]: {
                     id: [action.id],
@@ -13,12 +14,24 @@ export default function cartReducer(state = {}, action) {
                 }
             }
             return newState
+        case REMOVEFROMCART:
+            newState = {}
+            for(let curr in state) {
+                if(state[curr].id[0] !== action.id) {
+                    console.log(state[curr]);
+                    newState[state[curr].id] = state[curr];
+                }
+            }
+            return newState;
         default:
             return state;
     }
 }
 
 export function addToCart(id) {
-    console.log('test',id);
     return({type: ADDTOCART, id: id});
+}
+
+export function removeFromCart(id) {
+    return({type: REMOVEFROMCART, id: id});
 }
