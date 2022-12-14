@@ -1,21 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../../store/cart';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromCart, addOneToCart, removeOneFromCart, updateInputField } from '../../store/cart';
 
 function CartItem({ item }) {
   const [count, setCount] = useState(item.count);
   const dispatch = useDispatch();
-  console.log('item id', item.id);
   const id = item.id;
 
   useEffect(() => {
+    console.log('updating count', item);
     setCount(item.count);
+    return count;
   }, [item.count]);
-
-  // const removeFromCart = () => {
-  //   console.log('removing');
-  //   dispatch(removeFromCart(id))
-  // }
 
   return (
     <li className="cart-item">
@@ -23,15 +19,29 @@ function CartItem({ item }) {
       <div className="cart-item-menu">
         <input
           type="number"
-          defaultValue={count}
+          value={count}
+          onChange={(e) =>{dispatch(updateInputField(id, e.target.value))}}
         />
         <button
           className="cart-item-button"
+          onClick={() => {
+            dispatch(addOneToCart(id));
+            }
+          }
         >
           +
         </button>
         <button
           className="cart-item-button"
+          onClick={() => {
+            if(count === 1) {
+              dispatch(removeFromCart(id));
+              }
+            else {
+              dispatch(removeOneFromCart(id));
+            }
+            }
+          }
         >
           -
         </button>
