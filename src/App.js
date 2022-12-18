@@ -1,35 +1,39 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Cart from './components/Cart';
 import ProduceList from './components/ProduceList';
 import { populateProduce } from './store/produce';
+import { showHideCart } from './store/cart';
 
 function App() {
+
   const dispatch = useDispatch();
+  // const [showCart, setShowCart] = useState(false);
+  const showCart = useSelector((state) => state.showCart.showCart);
+  console.log('showcart',showCart);
+
   useEffect(() => {
     dispatch(populateProduce())
   }, [dispatch]) 
-
-  const [showCart, setShowCart] = useState(false);
   
   return (
     <>
       <nav>
         <h1>Grocery Store</h1>
-        <button className="checkout-button" onClick={() => setShowCart(true)}>
+        <button className="checkout-button" onClick={() => dispatch(showHideCart(true))}>
           <i className="fas fa-shopping-bag" />
           Checkout
         </button>
       </nav>
-      <main style={showCart ? { marginRight: '300px' } : {}} >
+      <main style={showCart === true ? { marginRight: '300px' } : {}} >
         <ProduceList />
       </main>
       <div
         className="sidebar"
-        style={showCart ? { transform: 'translateX(-100%)' } : {}}
+        style={showCart === true ? { transform: 'translateX(-100%)' } : {}}
       >
         <div className="sidebar-header">
-          <button className="arrow-button" onClick={() => setShowCart(false)}>
+          <button className="arrow-button" onClick={() => dispatch(showHideCart(false))}>
             <i className="fas fa-arrow-right"></i>
           </button>
         </div>

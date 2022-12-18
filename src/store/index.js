@@ -1,11 +1,12 @@
 import { getDefaultNormalizer } from "@testing-library/react";
 import { combineReducers, applyMiddleware, compose, legacy_createStore as createStore} from "redux";
 import produceReducer from "./produce";
-import cartReducer from "./cart";
+import { cartReducer, showCartReducer } from "./cart";
 
 const rootReducer = combineReducers({
     produce: produceReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    showCart: showCartReducer
 });
 
 let enhancer;

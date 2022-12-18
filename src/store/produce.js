@@ -18,3 +18,5 @@ export default function produceReducer (state = {}, action) {
 export function populateProduce () {
     return ({type: POPULATE, produce: produceData});
 }
+
+export const getAllProduce = (state) => Object.values(state.produce);
